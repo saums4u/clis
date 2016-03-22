@@ -7,12 +7,7 @@ function* mkdir() {
     // Use 'yield' in here
     // Your implementation here
     let dirName = process.argv[2];
-    fs.mkdir(dirName, function callback(err, data){
-    	if(err){
-    		console.log(err)
-    	}
-    	//process.stdout.write(data)
-    })
+    let status = yield fs.mkdir(dirName);
 }
 
 module.exports = mkdir

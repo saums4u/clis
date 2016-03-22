@@ -1,15 +1,15 @@
 #!/usr/bin/env node --use_strict --harmony
 
 require('./helper')
-let fs = require('fs')
+let fs = require('fs').promise
 
 function* cat() {
     // Use 'yield' in here
     // Your implementation here
     let fileName = process.argv[2];
-    fs.readFile(fileName, function callback(err,data){
-    	process.stdout.write(data)	
-    });
+    let data = yield fs.readFile(fileName);
+	process.stdout.write(data)	
+
 }
 
 module.exports = cat

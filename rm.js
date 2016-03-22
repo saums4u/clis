@@ -11,19 +11,10 @@ let rm = co.wrap(function* () {
 	let stats = yield fs.stat(filePath)
 
 	if(stats.isDirectory()) {
-	    fs.rmdir(filePath, function callback(err, data){
-	    	if(err){
-	    		console.error(err)
-	    	}
-	    })
+	    let dir = yield fs.rmdir(filePath);
 	} else {
-		fs.unlink(filePath, function (err){
-			if( err ) {
-				throw err
-			}
-		});
+		let deleted = yield fs.unlink(filePath);
 	}
-	
-});
+})
 
 module.exports = rm
