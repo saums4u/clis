@@ -7,13 +7,23 @@ let fs = require('fs').promise
 let rm = co.wrap(function* () {
     // Use 'yield' in here
     // Your implementation here
-    let dirName = process.argv[2];
+    let filePath = process.argv[2];
+	let stats = yield fs.stat(filePath)
 
-    fs.rmdir(dirName, function callback(err, data){
-    	if(err){
-    		console.error(err)
-    	}
-    })
+	if(stats.isDirectory()) {
+	    fs.rmdir(filePath, function callback(err, data){
+	    	if(err){
+	    		console.error(err)
+	    	}
+	    })
+	} else {
+		fs.unlink(filePath, function (err){
+			if( err ) {
+				throw err
+			}
+		});
+	}
+	
 });
 
 module.exports = rm
